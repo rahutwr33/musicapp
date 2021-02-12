@@ -1,0 +1,13 @@
+export {default as ArtistEmailScreen} from './enterEmail';
+export {default as ArtistNameScreen} from './enterName';
+export {default as ArtistUserNameScreen} from './enterusername';
+export {default as ArtistPasswordScreen} from './enterPassword';
+export {default as ArtistDOBScreen} from './enterDob';
+export {default as ArtistGenderScreen} from './enterGender';
+export {default as ArtistSelectGenre} from './selectgenre';
+export {default as ArtistCountryScreen} from './entercountry';
+export {default as ArtistCompanyLabelScreen} from './enterlabelcompany';
+export {default as ArtistWebsiteScreen} from './enterwebsite';
+export {default as ArtistSocialMediaScreen} from './entersocialmedia';
+export {default as ArtistShowSocialMediaScree} from './showsocialmedia';
+export {default as SelectArtistOFArtist} from './selectartist';

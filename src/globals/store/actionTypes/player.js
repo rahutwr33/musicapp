@@ -1,0 +1,11 @@
+export const CURRENT_SONG = 'CURRENT_SONG';
+export const UPDATE_CURRENT_SONG = 'UPDATE_CURRENT_SONG';
+export const RECENT_PLAYED_SONG = 'RECENT_PLAYED_SONG';
+export const PLAY = 'PLAY';
+export const PAUSE = 'PAUSE';
+export const ISPLAYING = 'ISPLAYING';
+export const NEXT = 'NEXT';
+export const PREV = 'PREV';
+export const BUFFER = 'BUFFER';
+export const CURRENT_PLAYLIST = 'CURRENT_PLAYLIST';
+export const DURATION = 'DURATION';

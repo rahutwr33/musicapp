@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "291763218621",
+    "firebase_url": "https://mptone.firebaseio.com",
+    "project_id": "mptone",
+    "storage_bucket": "mptone.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291763218621:android:bc598cfb4fa0eaa3d8afd4",
+        "android_client_info": {
+          "package_name": "com.spotify_new"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291763218621-8mpk0ndv281taj8jcbpk3mmlnliind1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwHpGXOXulucXcET3SmWiwHVeYKehg7Rk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291763218621-8mpk0ndv281taj8jcbpk3mmlnliind1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
