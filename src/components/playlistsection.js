@@ -20,8 +20,10 @@ import {
 import {PushScreen} from '../navigation/pushscreen';
 import NoImage from '../assets/images/noimage.png';
 import {useTranslation} from 'react-i18next';
+import api from '../config/api';
 
 const PlayListSection = (props) => {
+  console.log(props)
   const {t, i18n} = useTranslation();
   let playlist = [];
   if (props && props.Playlist && props.Playlist) {
@@ -97,10 +99,11 @@ const PlayListSection = (props) => {
       style={styles.liststyle}>
       {props.tabindex === 1 && !item.hide ? (
         <>
-          <View style={{flexDirection: 'row', padding: 10}}>
+          <View style={{flexDirection: 'row', padding: 10,}}>
             <Image
-              source={item.cover_image ? {uri: item.cover_image} : NoImage}
+              source={item.song_image ? {uri: api.imageurl+item.song_image} : NoImage}
               style={styles.imagestyle}
+              resizeMode={'cover'} 
             />
             <View>
               <Text
@@ -142,10 +145,17 @@ const PlayListSection = (props) => {
       ) : (
         <>
           <View style={{flexDirection: 'row', padding: 10}}>
-            <Image
-              source={item.cover_image ? {uri: item.cover_image} : NoImage}
-              style={styles.imagestyle}
-            />
+           {
+             props.tabindex === 0 ?
+             <Image
+             source={item.album_pic ? {uri: api.imageurl+item.album_pic} : NoImage}
+             style={styles.imagestyle}
+           /> :
+           <Image
+           source={item.cover_image ? {uri: item.cover_image} : NoImage}
+           style={styles.imagestyle}
+           />
+           }
             <View>
               <Text
                 adjustsFontSizeToFit={true}

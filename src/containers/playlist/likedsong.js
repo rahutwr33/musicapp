@@ -28,6 +28,7 @@ import {PLAYLIST_SEARCH_SCREEN} from '../../navigation/screen';
 import {Content} from 'native-base';
 import {currentsong} from '../../globals/store/actions/player';
 import {useTranslation} from 'react-i18next';
+import api from '../../config/api';
 
 // import {showmodal} from '../../components/modal';
 
@@ -92,7 +93,7 @@ const LikedSong = (props) => {
       <TouchableOpacity style={{flex: 0.9}} onPress={() => openplayer(item)}>
         <View style={{flexDirection: 'row', padding: 10}}>
           <Image
-            source={item.cover_image ? {uri: item.cover_image} : NoImage}
+            source={item.song_image ? {uri: api.imageurl+item.song_image} : NoImage}
             style={styles.imagestyle}
           />
           <View style={{marginLeft: 10}}>

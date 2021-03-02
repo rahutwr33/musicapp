@@ -41,6 +41,7 @@ import {logoutdevice} from '../../globals/store/actions/auth';
 import DeviceInfo from 'react-native-device-info';
 import {initReactI18next, useTranslation} from 'react-i18next';
 import TrackPlayer from 'react-native-track-player';
+import { Platform } from 'react-native';
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: width / 2,
+    width: Platform.OS == "ios" ?  width / 2 : width / 1.8,
     borderTopRightRadius: 15,
     borderBottomRightRadius: 15,
   },

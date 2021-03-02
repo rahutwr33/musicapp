@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   TextInput,
   Platform,
+  Linking
 } from 'react-native';
 import {connect} from 'react-redux';
 import Player from '../../components/miniplayer';
@@ -48,7 +49,6 @@ const options = {
   },
 };
 const {width, height} = Dimensions.get('window');
-
 const UploadScreen = (props) => {
   const {t, i18n} = useTranslation();
   const [genre_id, setgenreid] = useState('');
@@ -69,7 +69,8 @@ const UploadScreen = (props) => {
   const [company, setcompany] = useState('');
   const [albumsong, setalbum] = useState([]);
   const [loader, setloader] = useState(false);
-
+  const [alertmessage, setalertmessage] = useState(false);
+  
   let [performedbyArr, setperformedbyArr] = useState([
     {
       index: 0,
@@ -90,6 +91,7 @@ const UploadScreen = (props) => {
       index: 0,
     },
   ]);
+  
 
   useEffect(() => {
     if (props && props.Auth && props.Auth.genre) {
@@ -134,6 +136,17 @@ const UploadScreen = (props) => {
   };
   const choosefile = async () => {
     try {
+      setalertmessage(true);
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        console.log('cancel');
+      } else {
+        console.log(err);
+      }
+    }
+  };
+
+  const selectsong = async ()=> {
       if (form === 0) {
         const res = await DocumentPicker.pick({
           type: [DocumentPicker.types.audio],
@@ -156,14 +169,7 @@ const UploadScreen = (props) => {
       if (form === 1) {
         opensongsList();
       }
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        console.log('cancel');
-      } else {
-        console.log(err);
-      }
-    }
-  };
+  }
   const validateData = async () => {
     if (!song_title) {
       return 'Song title character should be greater than 3';
@@ -317,7 +323,7 @@ const UploadScreen = (props) => {
           })
             .fetch(
               'POST',
-              `${api.apiBaseUrl}song-view`,
+              `${api.apiBaseUrl}/${api.prefixurl}/song-view`,
               {
                 Authorization: `Token ${token}`,
                 Accept: 'application/json',
@@ -333,7 +339,7 @@ const UploadScreen = (props) => {
               setpercentage(100);
               setprogreebar(1);
               setbtndisable(false);
-              Alerts('Song successfully added.', '', '');
+              Alerts('Success.', '', '');
             })
             .then((resp) => {
               if (resp) {
@@ -666,6 +672,55 @@ const UploadScreen = (props) => {
             },
           ]}>
           {openPicker()}
+        </View>
+      ) : null}
+      {alertmessage ? (
+        <View
+          style={[
+            styles.space,
+            {
+              position: 'absolute',
+              top: height / 3,
+              width: width,
+              height: Platform.OS == "ios" ? 150 : 180,
+              backgroundColor: 'white'
+            },
+          ]}>
+          <View>
+             <Text style={{textAlign: 'center', fontSize: 16,fontWeight: '600',paddingTop: 5}}>Choose a file to upload from your device</Text>
+          </View>
+          <View style={{padding: 10}}>
+             <Text style={{textAlign: 'center', fontSize: 14,fontWeight: '300', flexWrap:'wrap'}}>
+             By uploading, you confirm that your sounds conform with our <Text onPress={()=>{
+               Linking.canOpenURL('https://www.mptone.com/en/terms-conditions/').then(
+                (supported) => {
+                  if (supported) {
+                    Linking.openURL('https://www.mptone.com/en/terms-conditions/');
+                  } else {
+                    console.log("Don't know how to open URI: " + this.props.url);
+                  }
+                },
+              );
+             }} style={{color: '#0366d6', fontWeight: '700'}}>Term of Use</Text> and you don't infringe on anyone else's rights.
+             </Text>
+          </View>
+          <View style={{alignSelf: 'center', paddingTop: 10}}>
+            <NativeButton 
+              onPress={()=> {
+                setalertmessage(false);
+                selectsong();
+              }}
+              style={{
+              backgroundColor: '#0366d6',
+              marginTop: 10,
+              opacity: 0.8,
+              alignSelf: 'center',
+            }}><Text style={{
+              color: '#fff',
+              fontWeight: '600',
+              paddingLeft: 20,
+              paddingRight: 20,
+            }}>OK</Text></NativeButton></View>
         </View>
       ) : null}
       {showprogreebar ? (

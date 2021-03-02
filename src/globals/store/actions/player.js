@@ -5,6 +5,7 @@ import {
   BUFFER,
   CURRENT_PLAYLIST,
   DURATION,
+  TOP_SONG,
 } from '../actionTypes/player';
 import axios from '../../../utils/httpclient';
 import {
@@ -144,6 +145,29 @@ export const recentplayedsong = (payloads) => async (dispatch) => {
         dispatch({
           type: CURRENT_PLAYLIST,
           payload: res.data || [],
+        });
+      }
+      return res;
+    })
+    .catch(async (error) => {
+      const res = {
+        success: false,
+        message: 'Something went wrong,please try again',
+      };
+      console.log(error);
+      return res;
+    });
+};
+
+export const topsongs = (payloads) => async (dispatch) => {
+  return axios
+    .get('NewReleaseTopSignlesTopHitsYourMixAPIView/')
+    .then((res) => res.data)
+    .then(async (res) => {
+      if (res.data) {
+        dispatch({
+          type: TOP_SONG,
+          payload: res.data,
         });
       }
       return res;

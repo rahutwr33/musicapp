@@ -3,7 +3,6 @@ import {Navigation} from 'react-native-navigation';
 import {PopScreen} from '../navigation/pushscreen';
 
 export const Alerts = async (message, actions, payload) => {
-  console.log('actions', actions);
   if (actions === 'modal') {
     Alert.alert(
       '',
@@ -33,3 +32,8 @@ export const Alerts = async (message, actions, payload) => {
     );
   }
 };
+
+export const uploadTitle = () => `Choose a file to upload from your device`
+
+export const uploadMessage = () => `By uploading, you confirm that your sounds conform with our Term of Use and you don't infringe on anyone else's rights.`
+ 

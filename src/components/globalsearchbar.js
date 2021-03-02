@@ -61,9 +61,10 @@ const GlobalSearchBarScreen = (props) => {
     }
   }, [props]);
   const filter = debounce((searchvalue) => {
-    setloader(true);
     Promise.resolve(setsearch(searchvalue)).then(async () => {
       let val = searchvalue;
+      setloader(true);
+      console.log(state)
       if (state === 'playlist') {
         results = await searchAll(`create-playlist?playlist_name=${val}`);
         if (results.success) {
@@ -75,7 +76,9 @@ const GlobalSearchBarScreen = (props) => {
             setMessage('');
           }
         }
-      } else if (state === 'song') {
+      } else if (state === 'songs') {
+        console.log(searchvalue)
+
         results = await searchAll(`song-view?song_name=${val}`);
         if (results.success) {
           setloader(false);
@@ -86,7 +89,7 @@ const GlobalSearchBarScreen = (props) => {
             setMessage('');
           }
         }
-      } else if (state === 'album') {
+      } else if (state === 'albums') {
         results = await searchAll(`album?album_name=${val}`);
         if (results.success) {
           setloader(false);

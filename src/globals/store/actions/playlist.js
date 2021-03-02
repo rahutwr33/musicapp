@@ -105,6 +105,7 @@ export const userAlbum = (payloads) => async (dispatch) => {
 };
 
 export const searchAll = (payloads) => {
+  console.log(payloads)
   return axios
     .get(`${payloads}`)
     .then((res) => res.data)

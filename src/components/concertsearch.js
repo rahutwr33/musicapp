@@ -56,6 +56,7 @@ const ConcertSearchBarScreen = (props) => {
       }
     });
   }, 1000);
+  console.log(list)
   const renderItem = ({item}) => (
     <TouchableOpacity
       key={`playlist${String(item.id)}${Date.now()}`}

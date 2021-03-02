@@ -1,34 +1,53 @@
-import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {PushScreen} from '../../../navigation/pushscreen';
-import {BigLoginButton} from '../../../components/bigloginbtn';
-import ADELON from '../../../assets/svg/ADI-LEON-320.svg';
-import ADELONLOGO from '../../../assets/svg/logo-blue-320.svg';
-import {DarkSignupButton} from '../../../components/darksignupbtn';
-import {MAIN_LOGIN_SCREEN} from '../../../navigation/screen';
+import React, { Component } from 'react';
+import { Text, StyleSheet, View, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
+import { PushScreen, PopScreen } from '../../../navigation/pushscreen';
+import { BigLoginButton } from '../../../components/bigloginbtn';
+import ADELONLOGO from '../../../assets/svg/logo.svg';
+import { DarkSignupButton } from '../../../components/darksignupbtn';
+import { MAIN_LOGIN_SCREEN } from '../../../navigation/screen';
 import Headers from '../../../components/header';
-import {Translation} from 'react-i18next';
+import { Translation } from 'react-i18next';
+import LinearGradient from 'react-native-linear-gradient';
+import { Container } from 'native-base';
+import Icons from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginOptionScreen extends Component {
+  state = {
+    loader: false
+  }
   render() {
     return (
-      <>
+      <Container
+        style={styles.main}
+        pointerEvents={this.state.loader ? 'none' : 'auto'}>
         <Translation>
           {(t) => (
             <>
-              <Headers title="" navigation={this.props} />
+              <View style={{ flex: 1 }}>
+                <View style={{ flex: 0.4, backgroundColor: '#1e90bb' }}>
+                <ImageBackground resizeMode="contain" style={{ flex: 1 }} source={require('../../../assets/images/singerone.jpeg')} >
+                  <ImageBackground resizeMode="cover" style={{ flex: 1 }} source={require('../../../assets/images/blur.png')} >
+                    <TouchableOpacity
+                      onPress={() =>
+                        PopScreen(this.props, this.props && this.props.visible ? this.props.visible : false,
+                        )
+                      }
+                      style={{
+                        marginTop: 50, width: 70, alignSelf: 'flex-end'
+                      }}>
+                      <Icons style={{ textAlign: 'center' }} color="#ffffff" name="long-arrow-right" size={25} />
+                    </TouchableOpacity>
+                    <View style={{ position: 'absolute', marginTop: '30%', right: 0, marginRight: 20 }}>
+                      <View ><Text style={[styles.centertext, { fontSize: 21, marginLeft: '45%' }]}>Explore</Text></View>
+                      <View ><Text style={[styles.centertext, { marginTop: 5 }]}>The World Of Music</Text></View>
+                    </View>
+                  </ImageBackground>
+                </ImageBackground>
+              </View>
+              <View style={{ flex: 0.6 }}>
               <View style={styles.container}>
                 <View style={styles.logoStyle}>
-                  <View style={styles.logotitleStyle}>
-                    <ADELON
-                      preserveAspectRatio="none"
-                      width={100}
-                      height={20}
-                    />
-                  </View>
-                  <View style={styles.logoiconStyle}>
-                    <ADELONLOGO width={120} height={80} />
-                  </View>
+                  <ADELONLOGO preserveAspectRatio="none" width={140} height={120} />
                 </View>
 
                 <View>
@@ -48,26 +67,37 @@ export default class LoginOptionScreen extends Component {
                   />
                 </View>
               </View>
+              </View>
+              </View>
             </>
           )}
         </Translation>
-      </>
+      </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     backgroundColor: '#262626',
+  },
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.9,
+  },
+  centertext: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: '700'
   },
   padder: {
     marginTop: 10,
   },
   logoStyle: {
     flexDirection: 'row-reverse',
+  },
+  linearGradient: {
+    flex: 1,
   },
   logotitleStyle: {
     alignSelf: 'center',

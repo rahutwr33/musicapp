@@ -1,0 +1,98 @@
+/* eslint-disable react-native/no-inline-styles */
+import React, {Component} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
+import {PushScreen} from '../../../navigation/pushscreen';
+import {BigLoginButton} from '../../../components/bigloginbtn';
+import ADELONLOGO from '../../../assets/svg/logo.svg';
+import {DarkSignupButton} from '../../../components/darksignupbtn';
+import {ARTIST_NAME_SCREEN, USERNAME_SCREEN} from '../../../navigation/screen';
+import Headers from '../../../components/header';
+import {Translation} from 'react-i18next';
+import LinearGradient from 'react-native-linear-gradient';
+import {Container} from 'native-base';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import { PopScreen } from '../../../navigation/pushscreen';
+
+export default class RegisterOptionScreen extends Component {
+  state={
+    loader:false
+  }
+  render() {
+    return (
+      <Container
+        style={styles.main}
+        pointerEvents={this.state.loader ? 'none' : 'auto'}>
+        {/* <Headers title="" navigation={this.props} /> */}
+        <Translation>
+          {(t) => (
+             <>
+             <LinearGradient colors={['#1e90bb','#1e90bb','#01bdbe','#262626','#262626','#262626','#262626','#262626', '#262626','#262626','#262626']} style={styles.linearGradient}>
+             <TouchableOpacity 
+               onPress={() =>
+                 PopScreen(this.props,this.props && this.props.visible ? this.props.visible : false,
+                 )
+               }
+               style={{
+               marginTop: 50,width:70,alignSelf:'flex-end'
+               }}>
+                 <Icons  style={{textAlign:'center'}} color="#ffffff" name="long-arrow-right" size={25} />
+             </TouchableOpacity>
+            <View style={styles.container}>
+              <View style={styles.logoStyle}>
+                <ADELONLOGO preserveAspectRatio="none" width={140} height={120} />
+              </View>
+
+              <View>
+                <BigLoginButton
+                  buttonTitle={t('USER_SIGNUP')}
+                  onPress={() => PushScreen(USERNAME_SCREEN, this.props)}
+                />
+              </View>
+              <View style={styles.padder}>
+                <DarkSignupButton
+                  buttonTitle={t('ARTIST_SIGNUP')}
+                  onPress={() => PushScreen(ARTIST_NAME_SCREEN, this.props)}
+                />
+              </View>
+              {/* <View
+                style={[styles.padder, {position: 'absolute', bottom: '5%'}]}>
+                <Text style={{color: '#fff'}}>
+                  {t('Please_continue_registeration')}...
+                </Text>
+              </View> */}
+            </View>
+            </LinearGradient>
+            </>
+          )}
+        </Translation>
+      </Container>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  main:{
+    backgroundColor: '#262626',
+  },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex:1
+  },
+  linearGradient: {
+    flex: 1,
+  },
+  padder: {
+    marginTop: 10,
+  },
+  logoStyle: {
+    flexDirection: 'row-reverse',
+  },
+  logotitleStyle: {
+    alignSelf: 'center',
+    // position:'absolute',
+    // left:0,
+    // right:0,
+  },
+  logoiconStyle: {},
+});

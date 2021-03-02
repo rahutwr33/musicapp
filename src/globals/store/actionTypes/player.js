@@ -9,3 +9,4 @@ export const PREV = 'PREV';
 export const BUFFER = 'BUFFER';
 export const CURRENT_PLAYLIST = 'CURRENT_PLAYLIST';
 export const DURATION = 'DURATION';
+export const TOP_SONG = 'TOP_SONG';

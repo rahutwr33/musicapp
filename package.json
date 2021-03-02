@@ -8,8 +8,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "miniscreen": "yarn react-native run-ios  --simulator='iPad Air'",
-    "iosdevice": "xcrun simctl list devices"
+    "miniscreen": "yarn react-native run-ios  --simulator='iPhone 6s'",
+    "iosdevice": "xcrun simctl list devices",
+    "postinstall": "npx react-native-fix-image"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^1.1.2",

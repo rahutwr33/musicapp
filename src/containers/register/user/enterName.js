@@ -20,6 +20,7 @@ import DeviceInfo from 'react-native-device-info';
 import {useTranslation} from 'react-i18next';
 import CheckBox from '@react-native-community/checkbox';
 import {TouchableOpacity} from 'react-native';
+import { Platform } from 'react-native';
 
 const NameScreen = (props) => {
   const [name, setName] = useState(props.user.first_name);
@@ -130,7 +131,7 @@ const NameScreen = (props) => {
             <View
               style={[
                 styles.padderTop,
-                {flexDirection: 'row', paddingLeft: 5},
+                {flexDirection: 'row', paddingLeft: Platform.OS == "ios" ?  5 : 0},
               ]}>
               <CheckBox
                 disabled={false}
@@ -158,7 +159,7 @@ const NameScreen = (props) => {
                   style={{
                     color: '#fff',
                     fontSize: 20,
-                    paddingLeft: 10,
+                    paddingLeft: Platform.OS == "ios" ? 10 : 0,
                   }}>
                   I have read and agree to the{' '}
                   <Text
@@ -177,13 +178,13 @@ const NameScreen = (props) => {
           </Form>
           <View style={styles.termmainstyle}>
             <View style={styles.termnotestyle}>
+              <Text adjustsFontSizeToFit={true} style={styles.fontStyle}>
+                {t('By_creaeting')}
+              </Text>
               <Text
                 adjustsFontSizeToFit={true}
                 style={(styles.fontcolor, styles.fontItalic)}>
                 {t('Terms_of_Service')}{' '}
-              </Text>
-              <Text adjustsFontSizeToFit={true} style={styles.fontStyle}>
-                {t('By_creaeting')}
               </Text>
             </View>
             <View style={{}} />
@@ -196,12 +197,12 @@ const NameScreen = (props) => {
               </Text>
             </View>
             <View style={styles.termleftstyle}>
+              <Text adjustsFontSizeToFit={true} style={styles.fontStyle}>
+                {t('protects_ourself')}
+              </Text>
               <Text adjustsFontSizeToFit={true} style={styles.fontItalic}>
                 {' '}
                 {t('Privacy_Policy')}
-              </Text>
-              <Text adjustsFontSizeToFit={true} style={styles.fontStyle}>
-                {t('protects_ourself')}
               </Text>
             </View>
           </View>

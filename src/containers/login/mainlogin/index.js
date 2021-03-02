@@ -22,6 +22,9 @@ import {BUFFER_SCREEN} from '../../../navigation/screen';
 import DeviceInfo from 'react-native-device-info';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTranslation} from 'react-i18next';
+import LinearGradient from 'react-native-linear-gradient';
+import Icons from 'react-native-vector-icons/FontAwesome';
+import { PopScreen } from '../../../navigation/pushscreen';
 
 const MainLoginScreen = (props) => {
   const {t, i18n} = useTranslation();
@@ -36,7 +39,7 @@ const MainLoginScreen = (props) => {
   const [user_type, setuser_type] = useState(null);
   const [loader, setloader] = useState(false);
   const [fcmtoken, setfcm] = useState('');
-
+console.log(props)
   useEffect(() => {
     storage.get('fcmToken').then((token) => {
       setfcm(token);
@@ -111,8 +114,21 @@ const MainLoginScreen = (props) => {
       <Container
         style={styles.container}
         pointerEvents={loader ? 'none' : 'auto'}>
-        <Headers title="" navigation={props} />
+        <LinearGradient colors={['#1d4a49','#1d4a49', '#262626','#262626','#262626','#262626','#262626']} style={styles.linearGradient}>
+        {/* <Headers title="" navigation={props} gradient={['#01bdbe', '#262626','#262626','#262626']} /> */}
         <View style={{flex: 1}}>
+        <TouchableOpacity 
+          onPress={() =>
+            PopScreen(props,props && props.visible ? props.visible : false,
+            )
+          }
+          style={{
+          marginTop: 50,width:70,alignSelf:'flex-end'
+          }}>
+            <Icons  style={{textAlign:'center'}} color="#ffffff" name="long-arrow-right" size={25} />
+        </TouchableOpacity>
+        <View style={{flex:1, position:'absolute',alignSelf:'center', marginTop: 100}}>
+          <Text style={styles.centerTitle}>{user_type == 0 ? 'User' : 'Artist'} Login</Text></View>
           <Content
             scrollEnabled={false}
             padder
@@ -177,6 +193,7 @@ const MainLoginScreen = (props) => {
             </Form>
           </Content>
         </View>
+        </LinearGradient>
       </Container>
     </KeyboardAvoid>
   );
@@ -199,6 +216,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
   },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5
+  },
   padderTop: {
     paddingTop: 5,
   },
@@ -207,6 +230,12 @@ const styles = StyleSheet.create({
   },
   form: {
     width: '100%',
+  },
+  centerTitle:{
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: '700',
+    textAlign: 'center',
   },
   borderInput: {
     borderColor: '#ffffff',

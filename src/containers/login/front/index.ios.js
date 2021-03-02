@@ -1,18 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {PushScreen} from '../../../navigation/pushscreen';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Text, View, TouchableOpacity, ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
+import { PushScreen } from '../../../navigation/pushscreen';
 import {
   LOGIN_OPTION_SCREEN,
   REGISTER_OPTION_SCREEN,
   USERNAME_SCREEN,
 } from '../../../navigation/screen';
-import {BigLoginButton} from '../../../components/bigloginbtn';
-import ADELON from '../../../assets/svg/ADI-LEON-320.svg';
-import ADELONLOGO from '../../../assets/svg/logo-blue-320.svg';
+import { BigLoginButton } from '../../../components/bigloginbtn';
+import ADELONLOGO from '../../../assets/svg/logo.svg';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {DarkSignupButton} from '../../../components/darksignupbtn';
-import {connect} from 'react-redux';
+import { DarkSignupButton } from '../../../components/darksignupbtn';
+import { connect } from 'react-redux';
+import { Container } from 'native-base';
 
 import {
   LoginManager,
@@ -21,7 +21,7 @@ import {
   GraphRequestManager,
   LoginButton,
 } from 'react-native-fbsdk';
-import {Alerts} from '../../../utils/alert';
+import { Alerts } from '../../../utils/alert';
 import {
   setArtistValue,
   setValue,
@@ -32,17 +32,21 @@ import appleAuth, {
   AppleAuthRequestScope,
   AppleButton,
 } from '@invertase/react-native-apple-authentication';
-import {Navigation} from 'react-native-navigation';
-import {statusbarheight} from '../../../utils/statusbarheight';
-import {HeaderWithoutNavigation} from '../../../components/header';
-import {useTranslation} from 'react-i18next';
-import {Button} from 'native-base';
+import { Navigation } from 'react-native-navigation';
+import { statusbarheight } from '../../../utils/statusbarheight';
+import { HeaderWithoutNavigation } from '../../../components/header';
+import { useTranslation } from 'react-i18next';
+import { Button } from 'native-base';
+import LinearGradient from 'react-native-linear-gradient';
 
 const LoginScreen = (props) => {
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [loader, setloader] = useState(false);
+  const windowWidth = useWindowDimensions().width;
+  const windowHeight = useWindowDimensions().height;
   var listner = Navigation.events().registerComponentDidAppearListener(
     async (data) => {
-      const {componentName} = data;
+      const { componentName } = data;
       if (componentName === 'LOGIN_SCREEN') {
         await props.cleanState();
         listner.remove();
@@ -60,7 +64,7 @@ const LoginScreen = (props) => {
       })
       .then(async (response) => {
         console.log(response);
-        let {email, fullName} = response;
+        let { email, fullName } = response;
         await props.cleanState();
         if (email) {
           await props.setArtistValue({
@@ -153,29 +157,39 @@ const LoginScreen = (props) => {
     );
   };
   return (
-    <View style={styles.main}>
-      <HeaderWithoutNavigation title="" navigation={props} />
-      <View style={styles.container}>
-        <View style={styles.logoStyle}>
-          <View style={styles.logotitleStyle}>
-            <ADELON preserveAspectRatio="none" width={100} height={20} />
-          </View>
-          <View style={styles.logoiconStyle}>
-            <ADELONLOGO width={120} height={80} />
-          </View>
+    <Container
+      style={styles.main}
+      pointerEvents={loader ? 'none' : 'auto'}>
+     <View style={{flex:1}}>
+     <View style={{ flex: 0.4,backgroundColor:'#2bbdbd' }}>
+        <View style={{flex:1, marginTop:0}}>
+        <ImageBackground resizeMode="contain" style={{ flex: 1 }} source={require('../../../assets/images/singertwo.jpeg')} >
+          <ImageBackground resizeMode="cover" style={{ flex: 1 }} source={require('../../../assets/images/blur.png')} >
+            <View style={{ marginTop: 150 }}>
+              <View><Text style={[styles.centertext, { marginLeft: 60, fontSize: 21 }]}>Discover</Text></View>
+              <View><Text style={[styles.centertext, { marginLeft: 30, marginTop: 5 }]}>New Artists</Text></View>
+            </View>
+          </ImageBackground>
+        </ImageBackground>
         </View>
-        <View style={styles.padder}>
-          <Text
-            style={{
-              fontSize: 21,
-              color: '#fff',
-              textAlign: 'center',
-              fontWeight: '700',
-            }}>
-            {t('Million_of_songs')}
-          </Text>
-        </View>
-        {/* <View style={styles.largepadder}>
+      </View>
+      <View style={{ flex: 0.6 }}>
+        <View style={styles.container}>
+          <View style={styles.logoStyle}>
+            <ADELONLOGO preserveAspectRatio="none" width={140} height={120} />
+          </View>
+          <View style={styles.padder}>
+            <Text
+              style={{
+                fontSize: 21,
+                color: '#fff',
+                textAlign: 'center',
+                fontWeight: '700',
+              }}>
+              {t('Million_of_songs')}
+            </Text>
+          </View>
+          {/* <View style={styles.largepadder}>
           <Text
             style={{
               fontSize: 16,
@@ -186,11 +200,11 @@ const LoginScreen = (props) => {
             {t('Continue_with')}
           </Text>
         </View> */}
-        {/* <View style={{marginTop: 10, alignItems: 'center'}}>
+          {/* <View style={{marginTop: 10, alignItems: 'center'}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => fblogin()}> */}
-        {/* <LoginButton
+          {/* <LoginButton
             style={{
               width: 190,
               height: 45,
@@ -215,7 +229,7 @@ const LoginScreen = (props) => {
             }}
             onLogoutFinished={() => console.log('logout.')}
           /> */}
-        {/* <View
+          {/* <View
               style={{
                 backgroundColor: '#3B5998',
                 width: 190,
@@ -235,7 +249,7 @@ const LoginScreen = (props) => {
                 {t('Signup_Facebook')}
               </Text>
             </View> */}
-        {/* </TouchableOpacity>
+          {/* </TouchableOpacity>
           <AppleButton
             buttonStyle={AppleButton.Style.WHITE}
             buttonType={AppleButton.Type.CONTINUE}
@@ -246,7 +260,7 @@ const LoginScreen = (props) => {
             }}
             onPress={() => onAppleButtonPress()}
           /> */}
-        {/* </TouchableOpacity>
+          {/* </TouchableOpacity>
           {/* <View
             style={{
               flexDirection: 'row',
@@ -258,7 +272,7 @@ const LoginScreen = (props) => {
               /
             </Text>
           </View> */}
-        {/* <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => onAppleButtonPress()}
             style={{flexDirection: 'row', alignItems: 'center'}}>
             <View
@@ -276,50 +290,58 @@ const LoginScreen = (props) => {
               {t('Apple')}
             </Text>
           </TouchableOpacity> */}
-        {/* </View> */}
+          {/* </View> */}
 
-        <View>
-          <BigLoginButton
-            buttonTitle={t('LOGIN')}
-            onPress={() => PushScreen(LOGIN_OPTION_SCREEN, props)}
-          />
-        </View>
-        <View>
-          <DarkSignupButton
-            buttonTitle={t('SIGNUP')}
-            onPress={() => PushScreen(REGISTER_OPTION_SCREEN, props)}
-          />
+          <View style={{ paddingTop: 50 }}>
+            <BigLoginButton
+              buttonTitle={t('LOGIN')}
+              onPress={() => PushScreen(LOGIN_OPTION_SCREEN, props)}
+            />
+          </View>
+          <View>
+            <DarkSignupButton
+              buttonTitle={t('SIGNUP')}
+              onPress={() => PushScreen(REGISTER_OPTION_SCREEN, props)}
+            />
+          </View>
         </View>
       </View>
-    </View>
+     </View>
+    </Container>
   );
 };
 const mapStateToProps = (state) => ({
   Auth: state.Auth,
 });
 
-const mapDispatchToProps = {setArtistValue, setValue, cleanState};
+const mapDispatchToProps = { setArtistValue, setValue, cleanState };
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 const styles = StyleSheet.create({
   main: {
     backgroundColor: '#262626',
-    flex: 1,
-    marginTop: statusbarheight,
+    flex:1
   },
   container: {
-    backgroundColor: '#262626',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 0.9,
+  },
+  centertext: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: '700'
+  },
+  linearGradient: {
+
   },
   padder: {
-    marginTop: 30,
+    marginTop: 0,
   },
   largepadder: {
     marginTop: 50,
   },
   logoStyle: {
     flexDirection: 'row-reverse',
+    marginTop: 20,
   },
   logotitleStyle: {
     alignSelf: 'center',

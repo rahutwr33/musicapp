@@ -3,8 +3,7 @@ import React, {Component} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {PushScreen} from '../../../navigation/pushscreen';
 import {BigLoginButton} from '../../../components/bigloginbtn';
-import ADELON from '../../../assets/svg/ADI-LEON-320.svg';
-import ADELONLOGO from '../../../assets/svg/logo-blue-320.svg';
+import ADELONLOGO from '../../../assets/svg/logo.svg';
 import {DarkSignupButton} from '../../../components/darksignupbtn';
 import {ARTIST_NAME_SCREEN, USERNAME_SCREEN} from '../../../navigation/screen';
 import Headers from '../../../components/header';
@@ -19,12 +18,7 @@ export default class RegisterOptionScreen extends Component {
           {(t) => (
             <View style={styles.container}>
               <View style={styles.logoStyle}>
-                <View style={styles.logotitleStyle}>
-                  <ADELON preserveAspectRatio="none" width={100} height={20} />
-                </View>
-                <View style={styles.logoiconStyle}>
-                  <ADELONLOGO width={120} height={80} />
-                </View>
+                <ADELONLOGO preserveAspectRatio="none" width={140} height={120} />
               </View>
 
               <View>

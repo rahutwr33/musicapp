@@ -3,6 +3,7 @@ const INITIAL_STATE_PLAYLIST = {
   recentsong: {},
   playlist: {},
   duration: {},
+  topsongs:{},
   play: false,
   pause: true,
   prev: false,
@@ -23,6 +24,7 @@ import {
   BUFFER,
   CURRENT_PLAYLIST,
   DURATION,
+  TOP_SONG
 } from '../actionTypes/player';
 
 const Player = (state = INITIAL_STATE_PLAYLIST, action) => {
@@ -61,6 +63,12 @@ const Player = (state = INITIAL_STATE_PLAYLIST, action) => {
       return {
         ...state,
         next: action.payload,
+      };
+    case TOP_SONG:
+      console.log('222',action.payload)
+      return {
+        ...state,
+        topsongs: action.payload,
       };
     case PREV:
       return {

@@ -18,11 +18,14 @@ import {
 } from '../../globals/store/actions/playlist';
 import {Content} from 'native-base';
 import messaging from '@react-native-firebase/messaging';
+import NewRelease from '../../components/main/newrelease';
+import YourMix from '../../components/main/yourmix';
 
 const MainScreen = (props) => {
   const [madeforyou, setmadeforyou] = useState([]);
   const [heavyrotation, setheavyrotation] = useState([]);
   const [recentplayed, setrecentplayed] = useState([]);
+  console.log('111',props)
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
@@ -65,6 +68,7 @@ const MainScreen = (props) => {
     ) {
       setheavyrotation(props.Song.heavyrotation);
     }
+    
   }, [props]);
 
   const showSetting = () => {
@@ -86,6 +90,8 @@ const MainScreen = (props) => {
           <MadeforYou madeforyou={madeforyou} {...props} />
           <RecentlyPlayed recentplayed={recentplayed} {...props} />
           <HeavyRotation heavyrotation={heavyrotation} {...props} />
+          <NewRelease  {...props}/>
+          <YourMix {...props}/>
         </View>
       </Content>
       <Player />

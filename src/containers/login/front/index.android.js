@@ -117,12 +117,12 @@ const LoginScreen = (props) => {
         </View>
         <View style={styles.largepadder} />
         <View>
-          <View style={{justifyContent: 'space-evenly'}}>
+          {/* <View style={{justifyContent: 'space-evenly'}}>
             <Facebookbutton
               buttonTitle="CONTINUE WITH FACEBOOK"
               onPress={() => fblogin()}
             />
-          </View>
+          </View> */}
           <View>
             <BigLoginButton
               buttonTitle="LOG IN"

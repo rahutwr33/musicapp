@@ -11,7 +11,7 @@ import BufferLogo from '../../assets/svg/buffer.svg';
 import {statusbarheight} from '../../utils/statusbarheight';
 import {UserMainStack} from '../../navigation/stack/main';
 import {ArtistMainStack} from '../../navigation/stack/artist';
-import {recentplayedsong} from '../../globals/store/actions/player';
+import {recentplayedsong, topsongs} from '../../globals/store/actions/player';
 import {
   getuserselectionsong,
   heavyrotation,
@@ -37,6 +37,7 @@ const BufferScreen = (props) => {
       await props.recentplayed();
       await props.getuserselectionsong();
       await props.heavyrotation();
+      await props.topsongs();
       await props.getPropsGenreList('');
       let currentlang = await storage.get('defaultlang');
       console.log(currentlang);
@@ -76,6 +77,7 @@ const mapDispatchToProps = {
   getuserselectionsong,
   heavyrotation,
   recentplayed,
+  topsongs,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(BufferScreen);
 

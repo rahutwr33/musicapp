@@ -164,6 +164,22 @@ const PlayListSearchScreen = (props) => {
     }
   };
 
+  const loadimage = (title) => {
+    if(title == 'Top_Singles'){
+      return require('../../assets/images/topsingle.png')
+    }else if(title == 'Top_Hits'){
+      return require('../../assets/images/tophits.png')
+    }else if(title == 'New_Release'){
+      return require('../../assets/images/newrelease.png')
+    }else if(title == 'mix1'){
+      return require('../../assets/images/Rectangletwo.png')
+    }else if(title == 'mix2'){
+      return require('../../assets/images/Rectangle.png')
+    }else if(title == 'mix3'){
+      return require('../../assets/images/Group.png')
+    }
+  }
+
   const renderheader = () => {
     return (
       <Animated.View style={[styles.content2]}>
@@ -197,12 +213,13 @@ const PlayListSearchScreen = (props) => {
         </View> */}
         <Image
           style={styles.imagestyle2}
-          source={{
-            uri:
-              props.state && props.state.cover_image
-                ? apiurl.imageurl + props.state.cover_image
-                : 'https://i.ibb.co/rp6XHLZ/Rectangle-3.png',
-          }}
+          source={
+            props.state && props.state.cover_image ? {
+                uri:apiurl.imageurl + props.state.cover_image 
+            } : 
+            props.state && props.state.topimage ?  loadimage(props.state.topimage) :
+            {uri: 'https://i.ibb.co/rp6XHLZ/Rectangle-3.png'}
+        }
         />
         <Text
           style={{
