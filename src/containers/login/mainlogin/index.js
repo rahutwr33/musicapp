@@ -39,7 +39,6 @@ const MainLoginScreen = (props) => {
   const [user_type, setuser_type] = useState(null);
   const [loader, setloader] = useState(false);
   const [fcmtoken, setfcm] = useState('');
-console.log(props)
   useEffect(() => {
     storage.get('fcmToken').then((token) => {
       setfcm(token);

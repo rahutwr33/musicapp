@@ -133,8 +133,8 @@ android {
         applicationId "com.spotify_new"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "6"
+        versionCode 12
+        versionName "1"
         multiDexEnabled true
     }
     splits {
