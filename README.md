@@ -1,4 +1,4 @@
-# musicapp
+# musicapp built in react native
 
 Feature included
 create playlist
